@@ -1,0 +1,764 @@
+basePath: /api
+definitions:
+  model.Artikel:
+    properties:
+      id:
+        type: string
+      id_kategori:
+        type: string
+      id_penulis:
+        type: string
+      isi:
+        type: string
+      judul:
+        type: string
+      tanggal:
+        type: string
+    type: object
+  model.Kategori:
+    properties:
+      _id:
+        description: 'contoh: "k001"'
+        type: string
+      deskripsi:
+        type: string
+      nama:
+        type: string
+    type: object
+  model.Komentar:
+    properties:
+      _id:
+        description: 'contoh: "c001"'
+        type: string
+      id_artikel:
+        type: string
+      isi:
+        type: string
+      nama:
+        type: string
+      tanggal:
+        type: string
+    type: object
+  model.Penulis:
+    properties:
+      _id:
+        description: 'contoh: "p001"'
+        type: string
+      bio:
+        type: string
+      email:
+        type: string
+      nama:
+        type: string
+    type: object
+  model.User:
+    properties:
+      email:
+        type: string
+      id:
+        type: string
+      nama:
+        type: string
+      password:
+        type: string
+    type: object
+host: localhost:5000
+info:
+  contact:
+    email: kamu@email.com
+    name: Developer API Support
+  description: Dokumentasi REST API untuk manajemen artikel, kategori, komentar, dan
+    penulis.
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+  termsOfService: http://swagger.io/terms/
+  title: Backend Artikel API
+  version: "1.0"
+paths:
+  /api/:
+    get:
+      consumes:
+      - application/json
+      description: Menampilkan teks sambutan dari API
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Welcome to the Home Page!
+          schema:
+            type: string
+      summary: Menampilkan halaman utama
+      tags:
+      - Homepage
+  /api/artikels:
+    get:
+      consumes:
+      - application/json
+      description: Mengambil semua data artikel dari database
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Mendapatkan semua artikel
+      tags:
+      - Artikel
+    post:
+      consumes:
+      - application/json
+      description: Menyimpan artikel baru ke database (butuh token)
+      parameters:
+      - description: Data artikel baru
+        in: body
+        name: artikel
+        required: true
+        schema:
+          $ref: '#/definitions/model.Artikel'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Membuat artikel baru
+      tags:
+      - Artikel
+  /api/artikels/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Menghapus artikel tertentu dari database (butuh token)
+      parameters:
+      - description: ID Artikel
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Menghapus artikel berdasarkan ID
+      tags:
+      - Artikel
+    get:
+      consumes:
+      - application/json
+      description: Mengambil artikel tertentu berdasarkan ID
+      parameters:
+      - description: ID Artikel
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Mendapatkan artikel berdasarkan ID
+      tags:
+      - Artikel
+    put:
+      consumes:
+      - application/json
+      description: Mengubah data artikel berdasarkan ID (butuh token)
+      parameters:
+      - description: ID Artikel
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Data artikel yang diupdate
+        in: body
+        name: artikel
+        required: true
+        schema:
+          $ref: '#/definitions/model.Artikel'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Mengupdate artikel berdasarkan ID
+      tags:
+      - Artikel
+  /api/kategoris:
+    get:
+      consumes:
+      - application/json
+      description: Mengambil semua data kategori dari database
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Mendapatkan semua kategori
+      tags:
+      - Kategori
+    post:
+      consumes:
+      - application/json
+      description: Menambahkan kategori baru ke database (butuh token)
+      parameters:
+      - description: Data kategori baru
+        in: body
+        name: kategori
+        required: true
+        schema:
+          $ref: '#/definitions/model.Kategori'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Membuat kategori baru
+      tags:
+      - Kategori
+  /api/kategoris/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Menghapus data kategori dari database berdasarkan ID (butuh token)
+      parameters:
+      - description: ID Kategori
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Menghapus kategori berdasarkan ID
+      tags:
+      - Kategori
+    get:
+      consumes:
+      - application/json
+      description: Mengambil detail kategori berdasarkan ID
+      parameters:
+      - description: ID Kategori
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Mendapatkan kategori berdasarkan ID
+      tags:
+      - Kategori
+    put:
+      consumes:
+      - application/json
+      description: Mengubah data kategori berdasarkan ID (butuh token)
+      parameters:
+      - description: ID Kategori
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Data kategori yang diupdate
+        in: body
+        name: kategori
+        required: true
+        schema:
+          $ref: '#/definitions/model.Kategori'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Mengupdate kategori berdasarkan ID
+      tags:
+      - Kategori
+  /api/komentars:
+    get:
+      consumes:
+      - application/json
+      description: Mengambil semua data komentar dari database
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Ambil semua komentar
+      tags:
+      - Komentar
+    post:
+      consumes:
+      - application/json
+      description: Membuat data komentar baru (membutuhkan token)
+      parameters:
+      - description: Data Komentar
+        in: body
+        name: komentar
+        required: true
+        schema:
+          $ref: '#/definitions/model.Komentar'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Tambah komentar baru
+      tags:
+      - Komentar
+  /api/komentars/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Menghapus komentar berdasarkan ID (membutuhkan token)
+      parameters:
+      - description: ID Komentar
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Hapus komentar
+      tags:
+      - Komentar
+    get:
+      consumes:
+      - application/json
+      description: Mengambil satu data komentar berdasarkan ID
+      parameters:
+      - description: ID Komentar
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Ambil komentar berdasarkan ID
+      tags:
+      - Komentar
+    put:
+      consumes:
+      - application/json
+      description: Memperbarui data komentar berdasarkan ID (membutuhkan token)
+      parameters:
+      - description: ID Komentar
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Data Komentar
+        in: body
+        name: komentar
+        required: true
+        schema:
+          $ref: '#/definitions/model.Komentar'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Update komentar
+      tags:
+      - Komentar
+  /api/login:
+    post:
+      consumes:
+      - application/json
+      description: Melakukan login dan menghasilkan token JWT
+      parameters:
+      - description: Email dan Password
+        in: body
+        name: credentials
+        required: true
+        schema:
+          $ref: '#/definitions/model.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "401":
+          description: Unauthorized
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Login User
+      tags:
+      - Auth
+  /api/penulis:
+    get:
+      consumes:
+      - application/json
+      description: Mengambil semua data penulis dari database
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Ambil semua penulis
+      tags:
+      - Penulis
+    post:
+      consumes:
+      - application/json
+      description: Menambahkan data penulis ke database (dengan token BearerAuth)
+      parameters:
+      - description: Data Penulis
+        in: body
+        name: penulis
+        required: true
+        schema:
+          $ref: '#/definitions/model.Penulis'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Tambah penulis baru
+      tags:
+      - Penulis
+  /api/penulis/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Menghapus data penulis berdasarkan ID (dengan token BearerAuth)
+      parameters:
+      - description: ID Penulis
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Hapus penulis
+      tags:
+      - Penulis
+    get:
+      consumes:
+      - application/json
+      description: Mengambil data penulis berdasarkan ID
+      parameters:
+      - description: ID Penulis
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Ambil penulis berdasarkan ID
+      tags:
+      - Penulis
+    put:
+      consumes:
+      - application/json
+      description: Memperbarui data penulis berdasarkan ID (dengan token BearerAuth)
+      parameters:
+      - description: ID Penulis
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Data Penulis
+        in: body
+        name: penulis
+        required: true
+        schema:
+          $ref: '#/definitions/model.Penulis'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Perbarui data penulis
+      tags:
+      - Penulis
+  /api/register:
+    post:
+      consumes:
+      - application/json
+      description: Menambahkan user baru ke sistem
+      parameters:
+      - description: Data User Baru
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/model.User'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Registrasi User Baru
+      tags:
+      - Auth
+schemes:
+- http
+securityDefinitions:
+  BearerAuth:
+    description: 'Masukkan token JWT dengan format: Bearer {token}'
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
