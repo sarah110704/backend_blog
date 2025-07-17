@@ -8,11 +8,12 @@ import (
 	"os"
 	"strings"
 
+	_ "Backend/docs" // Wajib agar swagger.json digunakan
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/gofiber/swagger"
-	_ "Backend/docs" // Wajib agar swagger.json digunakan
 	"github.com/joho/godotenv"
 )
 
@@ -24,7 +25,7 @@ import (
 // @contact.email kamu@email.com
 // @license.name MIT
 // @license.url https://opensource.org/licenses/MIT
-// @host localhost:5000
+// @host localhost:6969
 // @BasePath /api
 // @schemes http
 // @securityDefinitions.apikey BearerAuth
@@ -55,7 +56,7 @@ func main() {
 		AllowCredentials: true,
 	}))
 
-	app.Get("/docs/*", swagger.HandlerDefault) // http://localhost:5000/docs/index.html
+	app.Get("/docs/*", swagger.HandlerDefault) // http://localhost:6969/docs/index.html
 
 	router.SetupRoutes(app)
 
@@ -68,7 +69,7 @@ func main() {
 
 	port := os.Getenv("PORT")
 	if port == "" {
-		port = "5000"
+		port = "6969"
 	}
 	fmt.Printf("🚀 Server running at http://localhost:%s\n", port)
 	log.Fatal(app.Listen(":" + port))

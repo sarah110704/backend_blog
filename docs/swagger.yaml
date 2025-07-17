@@ -39,6 +39,16 @@ definitions:
       tanggal:
         type: string
     type: object
+  model.LoginRequest:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    required:
+    - email
+    - password
+    type: object
   model.Penulis:
     properties:
       _id:
@@ -62,7 +72,7 @@ definitions:
       password:
         type: string
     type: object
-host: localhost:5000
+host: localhost:6969
 info:
   contact:
     email: kamu@email.com
@@ -538,39 +548,6 @@ paths:
       summary: Update komentar
       tags:
       - Komentar
-  /api/login:
-    post:
-      consumes:
-      - application/json
-      description: Melakukan login dan menghasilkan token JWT
-      parameters:
-      - description: Email dan Password
-        in: body
-        name: credentials
-        required: true
-        schema:
-          $ref: '#/definitions/model.User'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            additionalProperties: true
-            type: object
-        "400":
-          description: Bad Request
-          schema:
-            additionalProperties: true
-            type: object
-        "401":
-          description: Unauthorized
-          schema:
-            additionalProperties: true
-            type: object
-      summary: Login User
-      tags:
-      - Auth
   /api/penulis:
     get:
       consumes:
@@ -720,7 +697,40 @@ paths:
       summary: Perbarui data penulis
       tags:
       - Penulis
-  /api/register:
+  /login:
+    post:
+      consumes:
+      - application/json
+      description: Melakukan login dan menghasilkan token JWT
+      parameters:
+      - description: Email dan Password
+        in: body
+        name: credentials
+        required: true
+        schema:
+          $ref: '#/definitions/model.LoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "401":
+          description: Unauthorized
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Login User
+      tags:
+      - Auth
+  /register:
     post:
       consumes:
       - application/json

@@ -17,7 +17,7 @@ import (
 // @Success 201 {object} map[string]interface{}
 // @Failure 400 {object} map[string]interface{}
 // @Failure 500 {object} map[string]interface{}
-// @Router /api/register [post]
+// @Router /register [post]
 func RegisterUser(c *fiber.Ctx) error {
 	var user model.User
 
@@ -50,13 +50,13 @@ func RegisterUser(c *fiber.Ctx) error {
 // @Tags Auth
 // @Accept json
 // @Produce json
-// @Param credentials body model.User true "Email dan Password"
+// @Param credentials body model.LoginRequest true "Email dan Password"
 // @Success 200 {object} map[string]interface{}
 // @Failure 400 {object} map[string]interface{}
 // @Failure 401 {object} map[string]interface{}
-// @Router /api/login [post]
+// @Router /login [post]
 func LoginUser(c *fiber.Ctx) error {
-	var input model.User
+	var input model.LoginRequest
 
 	if err := c.BodyParser(&input); err != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{

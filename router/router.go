@@ -3,9 +3,10 @@ package router
 import (
 	"Backend/handler"
 
+	_ "Backend/docs" // penting agar swagger baca docs.go
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/swagger"
-	_ "Backend/docs" // penting agar swagger baca docs.go
 )
 
 func SetupRoutes(app *fiber.App) {
@@ -46,6 +47,15 @@ func SetupRoutes(app *fiber.App) {
 	api.Delete("/penulis/:id", handler.DeletePenulisByID)
 
 	// Routing untuk auth
+	// RegisterUser godoc
+	// @Summary Register user
+	// @Tags Auth
+	// @Accept json
+	// @Produce json
+	// @Param user body models.User true "User data to register"
+	// @Success 201 {object} models.User
+	// @Failure 400 {object} fiber.Map
+	// @Router /api/register [post]
 	api.Post("/register", handler.RegisterUser)
 	api.Post("/login", handler.LoginUser)
 }
