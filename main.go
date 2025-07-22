@@ -17,6 +17,14 @@ import (
 	"github.com/joho/godotenv"
 )
 
+
+func init() {
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatalf("Error loading .env file")
+	}
+}
+
 // @title Backend Artikel API
 // @version 1.0
 // @description Dokumentasi REST API untuk manajemen artikel, kategori, komentar, dan penulis.
@@ -26,20 +34,12 @@ import (
 // @license.name MIT
 // @license.url https://opensource.org/licenses/MIT
 // @host localhost:6969
-// @BasePath /api
 // @schemes http
 // @securityDefinitions.apikey BearerAuth
 // @in header
+// @BasePath /
 // @name Authorization
 // @description Masukkan token JWT dengan format: Bearer {token}
-
-func init() {
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatalf("Error loading .env file")
-	}
-}
-
 func main() {
 	config.DB = config.MongoConnect(config.DBName)
 	if config.DB == nil {

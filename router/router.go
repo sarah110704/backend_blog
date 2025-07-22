@@ -58,4 +58,5 @@ func SetupRoutes(app *fiber.App) {
 	// @Router /api/register [post]
 	api.Post("/register", handler.RegisterUser)
 	api.Post("/login", handler.LoginUser)
+
 }
