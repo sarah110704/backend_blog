@@ -17,11 +17,14 @@ import (
 	"github.com/joho/godotenv"
 )
 
-
 func init() {
-	err := godotenv.Load()
-	if err != nil {
-		log.Println("Error loading .env file")
+	// Load .env file if it exists
+	if _, err := os.Stat(".env"); err == nil {
+		if loadErr := godotenv.Load(); loadErr != nil {
+			log.Println("Error loading .env file")
+		}
+	} else {
+		log.Println(".env file not found, using environment variables from Railway")
 	}
 }
 
