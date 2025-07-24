@@ -47,7 +47,7 @@ func GetKomentarByID(ctx context.Context, id string) (model.Komentar, error) {
 
 	err := collection.FindOne(ctx, bson.M{"_id": id}).Decode(&komentar)
 	if err != nil {
-		return komentar, fmt.Errorf("Komentar tidak ditemukan: %v", err)
+		return komentar, fmt.Errorf("komentar tidak ditemukan: %v", err)
 	}
 
 	return komentar, nil
@@ -68,7 +68,7 @@ func UpdateKomentarByID(ctx context.Context, id string, data model.Komentar) err
 
 	_, err := collection.UpdateOne(ctx, filter, update)
 	if err != nil {
-		return fmt.Errorf("Gagal update komentar: %v", err)
+		return fmt.Errorf("gagal update komentar: %v", err)
 	}
 
 	return nil
@@ -79,7 +79,7 @@ func DeleteKomentarByID(ctx context.Context, id string) error {
 
 	_, err := collection.DeleteOne(ctx, bson.M{"_id": id})
 	if err != nil {
-		return fmt.Errorf("Gagal menghapus komentar: %v", err)
+		return fmt.Errorf("gagal menghapus komentar: %v", err)
 	}
 
 	return nil

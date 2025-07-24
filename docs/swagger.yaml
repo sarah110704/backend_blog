@@ -547,6 +547,39 @@ paths:
       summary: Update komentar
       tags:
       - Komentar
+  /api/login:
+    post:
+      consumes:
+      - application/json
+      description: Melakukan login dan menghasilkan token JWT
+      parameters:
+      - description: Email dan Password
+        in: body
+        name: credentials
+        required: true
+        schema:
+          $ref: '#/definitions/model.LoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "401":
+          description: Unauthorized
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Login User
+      tags:
+      - Auth
   /api/penulis:
     get:
       consumes:
@@ -696,40 +729,7 @@ paths:
       summary: Perbarui data penulis
       tags:
       - Penulis
-  /login:
-    post:
-      consumes:
-      - application/json
-      description: Melakukan login dan menghasilkan token JWT
-      parameters:
-      - description: Email dan Password
-        in: body
-        name: credentials
-        required: true
-        schema:
-          $ref: '#/definitions/model.LoginRequest'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            additionalProperties: true
-            type: object
-        "400":
-          description: Bad Request
-          schema:
-            additionalProperties: true
-            type: object
-        "401":
-          description: Unauthorized
-          schema:
-            additionalProperties: true
-            type: object
-      summary: Login User
-      tags:
-      - Auth
-  /register:
+  /api/register:
     post:
       consumes:
       - application/json

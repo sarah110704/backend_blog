@@ -1,10 +1,9 @@
 package router
 
 import (
+	_ "Backend/docs"
 	"Backend/handler"
 	"Backend/middleware"
-
-	_ "Backend/docs"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/swagger"
