@@ -16,6 +16,11 @@ import (
 func RegisterUser(ctx context.Context, user *model.User) error {
 	collection := config.DB.Collection("users")
 
+	// ✅ Validasi password minimal 8 karakter
+	if len(user.Password) < 8 {
+		return fmt.Errorf("password harus minimal 8 karakter")
+	}
+
 	// Hash password
 	hashed, err := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
 	if err != nil {
@@ -37,6 +42,11 @@ func RegisterUser(ctx context.Context, user *model.User) error {
 
 func LoginUser(ctx context.Context, email string, password string) (string, error) {
 	collection := config.DB.Collection("users")
+
+	// ✅ Validasi password minimal 8 karakter
+	if len(password) < 8 {
+		return "", fmt.Errorf("password harus minimal 8 karakter")
+	}
 
 	var user model.User
 	err := collection.FindOne(ctx, bson.M{"email": email}).Decode(&user)
