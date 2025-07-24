@@ -19,6 +19,7 @@ func RegisterUser(ctx context.Context, user *model.User) error {
 	// Hash password
 	hashed, err := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
 	if err != nil {
+		log.Println("RegisterUser: gagal hash password:", err)
 		return fmt.Errorf("gagal hash password: %v", err)
 	}
 	user.Password = string(hashed)
@@ -26,9 +27,11 @@ func RegisterUser(ctx context.Context, user *model.User) error {
 
 	_, err = collection.InsertOne(ctx, user)
 	if err != nil {
+		log.Println("RegisterUser: gagal insert user:", err)
 		return fmt.Errorf("gagal insert user: %v", err)
 	}
 
+	log.Println("RegisterUser: user berhasil disimpan:", user)
 	return nil
 }
 

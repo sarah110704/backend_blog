@@ -74,6 +74,12 @@ func main() {
 	if port == "" {
 		port = "6969"
 	}
-	fmt.Printf("🚀 Server running at http://localhost:%s\n", port)
+
+	host := os.Getenv("RAILWAY_STATIC_URL")
+	if host == "" {
+		host = "http://localhost"
+	}
+
+	fmt.Printf("🚀 Server running at %s:%s\n", host, port)
 	log.Fatal(app.Listen(":" + port))
 }

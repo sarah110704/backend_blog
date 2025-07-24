@@ -3,7 +3,8 @@ package config
 var AllowedOrigins = []string{
 	"http://localhost:6969",
 	"http://localhost:5173",
-	"http://127.0.0.1:6969/",
+	"https://blogger-go.netlify.app",
+	"https://backendblog.up.railway.app",
 }
 
 func GetAllowedOrigins() []string {
