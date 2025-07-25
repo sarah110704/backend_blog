@@ -7,40 +7,26 @@ import (
 
 var jwtKey = []byte("RAHASIA_LO_JANGAN_SEBARIN")
 
-type JWTClaim struct {
-	Email string `json:"email"`
-	jwt.RegisteredClaims
-}
-
 func GenerateJWT(email string) (string, error) {
-	expirationTime := time.Now().Add(1 * time.Hour)
-	claims := &JWTClaim{
-		Email: email,
-		RegisteredClaims: jwt.RegisteredClaims{
-			ExpiresAt: jwt.NewNumericDate(expirationTime),
-		},
+	claims := jwt.MapClaims{
+		"email": email,
+		"exp":   time.Now().Add(1 * time.Hour).Unix(),
 	}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 	return token.SignedString(jwtKey)
 }
 
-func ValidateToken(signedToken string) (*JWTClaim, error) {
-	token, err := jwt.ParseWithClaims(
-		signedToken,
-		&JWTClaim{},
-		func(token *jwt.Token) (interface{}, error) {
-			return jwtKey, nil
-		},
-	)
-
-	if err != nil {
+func ValidateToken(signedToken string) (map[string]interface{}, error) {
+	token, err := jwt.Parse(signedToken, func(token *jwt.Token) (interface{}, error) {
+		return jwtKey, nil
+	})
+	if err != nil || !token.Valid {
 		return nil, err
 	}
 
-	claims, ok := token.Claims.(*JWTClaim)
-	if !ok || !token.Valid {
-		return nil, err
+	if claims, ok := token.Claims.(jwt.MapClaims); ok {
+		return claims, nil
 	}
 
-	return claims, nil
+	return nil, err
 }
