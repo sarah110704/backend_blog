@@ -6,9 +6,8 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"strings"
 
-	_ "Backend/docs"
+	_ "Backend/docs" // Wajib agar swagger.json digunakan
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
@@ -18,12 +17,9 @@ import (
 )
 
 func init() {
-	if _, err := os.Stat(".env"); err == nil {
-		if loadErr := godotenv.Load(); loadErr != nil {
-			log.Println("Error loading .env file")
-		}
-	} else {
-		log.Println(".env file not found, using environment variables from Railway")
+	err := godotenv.Load()
+	if err != nil {
+		log.Println("Error loading .env file")
 	}
 }
 
@@ -39,29 +35,29 @@ func init() {
 // @schemes http
 // @securityDefinitions.apikey BearerAuth
 // @in header
+// @BasePath /
 // @name Authorization
 // @description Masukkan token JWT dengan format: Bearer {token}
 func main() {
 	config.DB = config.MongoConnect(config.DBName)
 	if config.DB == nil {
-		log.Fatal("❌ Failed to connect to MongoDB")
+		log.Fatal("Failed to connect to MongoDB")
 	}
 
 	app := fiber.New()
 
 	app.Use(logger.New())
 	app.Use(cors.New(cors.Config{
-		AllowOrigins:     strings.Join(config.GetAllowedOrigins(), ","),
-		AllowMethods:     "GET,POST,PUT,DELETE",
+		AllowOrigins:     "*",
+		AllowMethods:     "GET,POST,PUT,DELETE,OPTIONS",
 		AllowHeaders:     "Origin, Content-Type, Accept, Authorization",
 		AllowCredentials: true,
 	}))
 
-	app.Get("/docs/*", swagger.HandlerDefault) // Swagger UI: http://localhost:6969/docs/index.html
+	app.Get("/docs/*", swagger.HandlerDefault) // http://localhost:6969/docs/index.html
 
 	router.SetupRoutes(app)
 
-	// Default 404 handler
 	app.Use(func(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{
 			"status":  "error",
@@ -73,12 +69,6 @@ func main() {
 	if port == "" {
 		port = "6969"
 	}
-
-	host := os.Getenv("RAILWAY_STATIC_URL")
-	if host == "" {
-		host = "http://localhost"
-	}
-
-	fmt.Printf("🚀 Server running at %s:%s\n", host, port)
+	fmt.Printf("🚀 Server running at http://localhost:%s\n", port)
 	log.Fatal(app.Listen(":" + port))
 }
