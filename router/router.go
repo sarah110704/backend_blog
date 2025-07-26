@@ -1,40 +1,29 @@
 package router
 
 import (
+	_ "Backend/docs"
 	"Backend/handler"
 	"Backend/middleware"
-
-	_ "Backend/docs"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/swagger"
 )
 
 func SetupRoutes(app *fiber.App) {
-	// Swagger Docs (http://localhost:6969/docs/index.html)
-	app.Get("/docs/*", swagger.HandlerDefault)
+	// Dokumentasi Swagger
+	app.Get("/docs/*", swagger.HandlerDefault) // http://localhost:6969/docs/index.html
 
 	api := app.Group("/api")
 
-	// 🔓 Public Routes
+	// 🔓 PUBLIC ROUTES
 	api.Get("/", handler.Homepage)
 	api.Post("/login", handler.LoginUser)
 	api.Post("/register", handler.RegisterUser)
 
-	// Public GET for all resources
-	api.Get("/artikels", handler.GetAllArtikels)
-	api.Get("/artikels/:id", handler.GetArtikelByID)
-
-	api.Get("/kategoris", handler.GetAllKategoris)
-	api.Get("/kategoris/:id", handler.GetKategoriByID)
-
-	api.Get("/komentars", handler.GetAllKomentars)
-	api.Get("/komentars/:id", handler.GetKomentarByID)
-
-	// 🔐 Protected Routes
+	// 🔐 PROTECTED ROUTES (Harus pakai JWT)
 	auth := api.Group("/", middleware.JWTProtected())
 
-	// Artikel (POST, PUT, DELETE)
+	// Artikel
 	auth.Post("/artikels", handler.CreateArtikel)
 	auth.Put("/artikels/:id", handler.UpdateArtikelByID)
 	auth.Delete("/artikels/:id", handler.DeleteArtikelByID)
@@ -49,10 +38,21 @@ func SetupRoutes(app *fiber.App) {
 	auth.Put("/komentars/:id", handler.UpdateKomentarByID)
 	auth.Delete("/komentars/:id", handler.DeleteKomentarByID)
 
-	// Penulis (semua method harus pakai token)
-	auth.Get("/penulis", handler.GetAllPenulis)
-	auth.Get("/penulis/:id", handler.GetPenulisByID)
+	// Penulis
 	auth.Post("/penulis", handler.CreatePenulis)
 	auth.Put("/penulis/:id", handler.UpdatePenulisByID)
 	auth.Delete("/penulis/:id", handler.DeletePenulisByID)
+
+	// 🔓 OPSIONAL: GET masih publik (boleh dibuka ke semua)
+	api.Get("/artikels", handler.GetAllArtikels)
+	api.Get("/artikels/:id", handler.GetArtikelByID)
+
+	api.Get("/kategoris", handler.GetAllKategoris)
+	api.Get("/kategoris/:id", handler.GetKategoriByID)
+
+	api.Get("/komentars", handler.GetAllKomentars)
+	api.Get("/komentars/:id", handler.GetKomentarByID)
+
+	api.Get("/penulis", handler.GetAllPenulis)
+	api.Get("/penulis/:id", handler.GetPenulisByID)
 }
