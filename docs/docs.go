@@ -1171,7 +1171,7 @@ var SwaggerInfo = &swag.Spec{
 	Version:          "1.0",
 	Host:             "localhost:6969",
 	BasePath:         "",
-	Schemes:          []string{"http"},
+	Schemes:          []string{"https", "http"},
 	Title:            "Backend Artikel API",
 	Description:      "Dokumentasi REST API untuk manajemen artikel, kategori, komentar, dan penulis.",
 	InfoInstanceName: "swagger",
