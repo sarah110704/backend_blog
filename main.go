@@ -32,7 +32,7 @@ func init() {
 // @license.name MIT
 // @license.url https://opensource.org/licenses/MIT
 // @host localhost:6969
-// @schemes http
+// @schemes http https
 // @securityDefinitions.apikey BearerAuth
 // @in header
 // @BasePath /
@@ -48,9 +48,9 @@ func main() {
 
 	app.Use(logger.New())
 	app.Use(cors.New(cors.Config{
-		AllowOrigins: "https://petstore.swagger.io,https://editor.swagger.io,https://app.swaggerhub.com,https://backendblog.up.railway.app",
-		AllowMethods: "GET,POST,PUT,DELETE,OPTIONS",
-		AllowHeaders: "Origin, Content-Type, Accept, Authorization",
+		AllowOrigins:     "https://petstore.swagger.io,https://editor.swagger.io,https://app.swaggerhub.com,https://backendblog.up.railway.app",
+		AllowMethods:     "GET,POST,PUT,DELETE,OPTIONS",
+		AllowHeaders:     "Origin, Content-Type, Accept, Authorization",
 		AllowCredentials: true,
 	}))
 

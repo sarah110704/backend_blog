@@ -763,8 +763,8 @@ paths:
       tags:
       - Auth
 schemes:
-- https
 - http
+- https
 securityDefinitions:
   BearerAuth:
     description: 'Masukkan token JWT dengan format: Bearer {token}'
