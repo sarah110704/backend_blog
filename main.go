@@ -32,7 +32,7 @@ func init() {
 // @license.name MIT
 // @license.url https://opensource.org/licenses/MIT
 // @host localhost:6969
-// @schemes https http
+// @schemes http
 // @securityDefinitions.apikey BearerAuth
 // @in header
 // @BasePath /

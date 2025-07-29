@@ -6,6 +6,7 @@ import (
 	"fmt"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/golang-jwt/jwt/v4"
 )
 
 // Homepage godoc
@@ -64,6 +65,16 @@ func CreateArtikel(c *fiber.Ctx) error {
 			"error":   err.Error(),
 		})
 	}
+
+	// Ambil id_penulis dari JWT (email)
+	user := c.Locals("user")
+	if user != nil {
+		claims := user.(*jwt.Token).Claims.(jwt.MapClaims)
+		artikel.IDPenulis = claims["email"].(string)
+	}
+
+	// Jika ingin id_kategori otomatis, bisa set default di sini
+	// artikel.IDKategori = "default_kategori_id"
 
 	if err := controller.CreateArtikel(&artikel); err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
