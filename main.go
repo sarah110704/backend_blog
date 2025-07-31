@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"strings"
 
 	_ "Backend/docs" // Wajib agar swagger.json digunakan
 
@@ -32,14 +33,9 @@ func init() {
 // @license.name MIT
 // @license.url https://opensource.org/licenses/MIT
 // @schemes http https
-<<<<<<< HEAD
 // @BasePath /
 // @securityDefinitions.apikey Bearer
-=======
-// @securityDefinitions.apikey BearerAuth
->>>>>>> 36605f5109d3743dcee478d3c815d3b15f6f91d5
 // @in header
-// @BasePath /
 // @name Authorization
 // @description Masukkan token JWT dengan format: Bearer {token}
 func main() {
@@ -50,7 +46,6 @@ func main() {
 
 	app := fiber.New()
 
-<<<<<<< HEAD
 	app.Use(logger.New())
 
 	// Enhanced CORS configuration for both HTTP and HTTPS
@@ -60,19 +55,8 @@ func main() {
 		AllowHeaders:     "Origin, Content-Type, Accept, Authorization, X-Requested-With, Access-Control-Allow-Origin",
 		AllowCredentials: false,
 		ExposeHeaders:    "Content-Length, Access-Control-Allow-Origin",
-=======
-	// CORS harus paling atas
-	app.Use(cors.New(cors.Config{
-		AllowOrigins: "https://petstore.swagger.io,https://editor.swagger.io,https://app.swaggerhub.com,https://backendblog.up.railway.app,https://tampilan-blog.vercel.app",
-		AllowMethods: "GET,POST,PUT,DELETE,OPTIONS",
-		AllowHeaders: "Origin, Content-Type, Accept, Authorization, X-Requested-With",
-		AllowCredentials: true,
-		ExposeHeaders: "Content-Length, Access-Control-Allow-Origin, Access-Control-Allow-Headers, Authorization",
->>>>>>> 36605f5109d3743dcee478d3c815d3b15f6f91d5
 	}))
-	app.Use(logger.New())
 
-<<<<<<< HEAD
 	// Add preflight OPTIONS handler
 	app.Options("/*", func(c *fiber.Ctx) error {
 		return c.SendStatus(204)
@@ -87,18 +71,6 @@ func main() {
 		c.Set("Access-Control-Allow-Headers", "Origin, Content-Type, Accept, Authorization")
 		return c.SendFile("./docs/swagger.json")
 	})
-=======
-	// Handler global untuk preflight OPTIONS
-	app.Options("*", func(c *fiber.Ctx) error {
-		c.Set("Access-Control-Allow-Origin", c.Get("Origin"))
-		c.Set("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS")
-		c.Set("Access-Control-Allow-Headers", "Origin, Content-Type, Accept, Authorization, X-Requested-With")
-		c.Set("Access-Control-Allow-Credentials", "true")
-		return c.SendStatus(fiber.StatusNoContent)
-	})
-
-	app.Get("/docs/*", swagger.HandlerDefault) // http://localhost:6969/docs/index.html
->>>>>>> 36605f5109d3743dcee478d3c815d3b15f6f91d5
 
 	router.SetupRoutes(app)
 

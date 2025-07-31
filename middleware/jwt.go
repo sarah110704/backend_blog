@@ -8,16 +8,10 @@ import (
 )
 
 func JWTProtected() fiber.Handler {
-<<<<<<< HEAD
 	return func(c *fiber.Ctx) error {
 		// Get Authorization header
 		authHeader := c.Get("Authorization")
 		if authHeader == "" {
-=======
-	return jwtware.New(jwtware.Config{
-		SigningKey: []byte("RAHASIA_LO_JANGAN_SEBARIN"),
-		ErrorHandler: func(c *fiber.Ctx, err error) error {
->>>>>>> 36605f5109d3743dcee478d3c815d3b15f6f91d5
 			return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
 				"error": "Authorization header required",
 			})

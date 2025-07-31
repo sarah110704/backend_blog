@@ -18,10 +18,7 @@
         },
         "version": "1.0"
     },
-<<<<<<< HEAD
     "basePath": "/",
-=======
->>>>>>> 36605f5109d3743dcee478d3c815d3b15f6f91d5
     "paths": {
         "/api/": {
             "get": {
