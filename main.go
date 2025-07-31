@@ -31,7 +31,6 @@ func init() {
 // @contact.email kamu@email.com
 // @license.name MIT
 // @license.url https://opensource.org/licenses/MIT
-// @host localhost:6969
 // @schemes http https
 // @securityDefinitions.apikey BearerAuth
 // @in header
