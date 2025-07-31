@@ -4,7 +4,6 @@ go 1.23.4
 
 require (
 	github.com/gofiber/fiber/v2 v2.52.8
-	github.com/gofiber/jwt/v3 v3.3.10
 	github.com/gofiber/swagger v1.1.1
 	github.com/golang-jwt/jwt/v4 v4.5.2
 	github.com/joho/godotenv v1.5.1

@@ -10,10 +10,11 @@ import (
 
 // GetAllPenulis godoc
 // @Summary Ambil semua penulis
-// @Description Mengambil semua data penulis dari database
+// @Description Mengambil semua data penulis dari database (butuh token)
 // @Tags Penulis
 // @Accept json
 // @Produce json
+// @Security Bearer
 // @Success 200 {object} map[string]interface{}
 // @Failure 500 {object} map[string]interface{}
 // @Router /api/penulis [get]
@@ -33,7 +34,7 @@ func GetAllPenulis(c *fiber.Ctx) error {
 
 // CreatePenulis godoc
 // @Summary Tambah penulis baru
-// @Description Menambahkan data penulis ke database (dengan token BearerAuth)
+// @Description Menambahkan data penulis ke database (dengan token Bearer)
 // @Tags Penulis
 // @Accept json
 // @Produce json
@@ -41,7 +42,7 @@ func GetAllPenulis(c *fiber.Ctx) error {
 // @Success 201 {object} map[string]interface{}
 // @Failure 400 {object} map[string]interface{}
 // @Failure 500 {object} map[string]interface{}
-// @Security BearerAuth
+// @Security Bearer
 // @Router /api/penulis [post]
 func CreatePenulis(c *fiber.Ctx) error {
 	var p model.Penulis
@@ -68,10 +69,11 @@ func CreatePenulis(c *fiber.Ctx) error {
 
 // GetPenulisByID godoc
 // @Summary Ambil penulis berdasarkan ID
-// @Description Mengambil data penulis berdasarkan ID
+// @Description Mengambil data penulis berdasarkan ID (butuh token)
 // @Tags Penulis
 // @Accept json
 // @Produce json
+// @Security Bearer
 // @Param id path string true "ID Penulis"
 // @Success 200 {object} map[string]interface{}
 // @Failure 404 {object} map[string]interface{}
@@ -94,7 +96,7 @@ func GetPenulisByID(c *fiber.Ctx) error {
 
 // UpdatePenulisByID godoc
 // @Summary Perbarui data penulis
-// @Description Memperbarui data penulis berdasarkan ID (dengan token BearerAuth)
+// @Description Memperbarui data penulis berdasarkan ID (dengan token Bearer)
 // @Tags Penulis
 // @Accept json
 // @Produce json
@@ -103,7 +105,7 @@ func GetPenulisByID(c *fiber.Ctx) error {
 // @Success 200 {object} map[string]interface{}
 // @Failure 400 {object} map[string]interface{}
 // @Failure 500 {object} map[string]interface{}
-// @Security BearerAuth
+// @Security Bearer
 // @Router /api/penulis/{id} [put]
 func UpdatePenulisByID(c *fiber.Ctx) error {
 	id := c.Params("id")
@@ -132,14 +134,14 @@ func UpdatePenulisByID(c *fiber.Ctx) error {
 
 // DeletePenulisByID godoc
 // @Summary Hapus penulis
-// @Description Menghapus data penulis berdasarkan ID (dengan token BearerAuth)
+// @Description Menghapus data penulis berdasarkan ID (dengan token Bearer)
 // @Tags Penulis
 // @Accept json
 // @Produce json
 // @Param id path string true "ID Penulis"
 // @Success 200 {object} map[string]interface{}
 // @Failure 500 {object} map[string]interface{}
-// @Security BearerAuth
+// @Security Bearer
 // @Router /api/penulis/{id} [delete]
 func DeletePenulisByID(c *fiber.Ctx) error {
 	id := c.Params("id")

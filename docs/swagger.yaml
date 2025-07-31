@@ -1,3 +1,4 @@
+basePath: /
 definitions:
   model.Artikel:
     properties:
@@ -71,7 +72,6 @@ definitions:
       password:
         type: string
     type: object
-host: localhost:6969
 info:
   contact:
     email: kamu@email.com
@@ -104,7 +104,7 @@ paths:
     get:
       consumes:
       - application/json
-      description: Mengambil semua data artikel dari database
+      description: Mengambil semua data artikel dari database (butuh token)
       produces:
       - application/json
       responses:
@@ -118,6 +118,8 @@ paths:
           schema:
             additionalProperties: true
             type: object
+      security:
+      - Bearer: []
       summary: Mendapatkan semua artikel
       tags:
       - Artikel
@@ -151,7 +153,7 @@ paths:
             additionalProperties: true
             type: object
       security:
-      - BearerAuth: []
+      - Bearer: []
       summary: Membuat artikel baru
       tags:
       - Artikel
@@ -180,14 +182,14 @@ paths:
             additionalProperties: true
             type: object
       security:
-      - BearerAuth: []
+      - Bearer: []
       summary: Menghapus artikel berdasarkan ID
       tags:
       - Artikel
     get:
       consumes:
       - application/json
-      description: Mengambil artikel tertentu berdasarkan ID
+      description: Mengambil artikel tertentu berdasarkan ID (butuh token)
       parameters:
       - description: ID Artikel
         in: path
@@ -207,6 +209,8 @@ paths:
           schema:
             additionalProperties: true
             type: object
+      security:
+      - Bearer: []
       summary: Mendapatkan artikel berdasarkan ID
       tags:
       - Artikel
@@ -245,7 +249,7 @@ paths:
             additionalProperties: true
             type: object
       security:
-      - BearerAuth: []
+      - Bearer: []
       summary: Mengupdate artikel berdasarkan ID
       tags:
       - Artikel
@@ -253,7 +257,7 @@ paths:
     get:
       consumes:
       - application/json
-      description: Mengambil semua data kategori dari database
+      description: Mengambil semua data kategori dari database (butuh token)
       produces:
       - application/json
       responses:
@@ -267,6 +271,8 @@ paths:
           schema:
             additionalProperties: true
             type: object
+      security:
+      - Bearer: []
       summary: Mendapatkan semua kategori
       tags:
       - Kategori
@@ -300,7 +306,7 @@ paths:
             additionalProperties: true
             type: object
       security:
-      - BearerAuth: []
+      - Bearer: []
       summary: Membuat kategori baru
       tags:
       - Kategori
@@ -329,14 +335,14 @@ paths:
             additionalProperties: true
             type: object
       security:
-      - BearerAuth: []
+      - Bearer: []
       summary: Menghapus kategori berdasarkan ID
       tags:
       - Kategori
     get:
       consumes:
       - application/json
-      description: Mengambil detail kategori berdasarkan ID
+      description: Mengambil detail kategori berdasarkan ID (butuh token)
       parameters:
       - description: ID Kategori
         in: path
@@ -356,6 +362,8 @@ paths:
           schema:
             additionalProperties: true
             type: object
+      security:
+      - Bearer: []
       summary: Mendapatkan kategori berdasarkan ID
       tags:
       - Kategori
@@ -394,7 +402,7 @@ paths:
             additionalProperties: true
             type: object
       security:
-      - BearerAuth: []
+      - Bearer: []
       summary: Mengupdate kategori berdasarkan ID
       tags:
       - Kategori
@@ -402,7 +410,7 @@ paths:
     get:
       consumes:
       - application/json
-      description: Mengambil semua data komentar dari database
+      description: Mengambil semua data komentar dari database (butuh token)
       produces:
       - application/json
       responses:
@@ -416,6 +424,8 @@ paths:
           schema:
             additionalProperties: true
             type: object
+      security:
+      - Bearer: []
       summary: Ambil semua komentar
       tags:
       - Komentar
@@ -449,7 +459,7 @@ paths:
             additionalProperties: true
             type: object
       security:
-      - BearerAuth: []
+      - Bearer: []
       summary: Tambah komentar baru
       tags:
       - Komentar
@@ -478,14 +488,14 @@ paths:
             additionalProperties: true
             type: object
       security:
-      - BearerAuth: []
+      - Bearer: []
       summary: Hapus komentar
       tags:
       - Komentar
     get:
       consumes:
       - application/json
-      description: Mengambil satu data komentar berdasarkan ID
+      description: Mengambil satu data komentar berdasarkan ID (butuh token)
       parameters:
       - description: ID Komentar
         in: path
@@ -505,6 +515,8 @@ paths:
           schema:
             additionalProperties: true
             type: object
+      security:
+      - Bearer: []
       summary: Ambil komentar berdasarkan ID
       tags:
       - Komentar
@@ -543,7 +555,7 @@ paths:
             additionalProperties: true
             type: object
       security:
-      - BearerAuth: []
+      - Bearer: []
       summary: Update komentar
       tags:
       - Komentar
@@ -584,7 +596,7 @@ paths:
     get:
       consumes:
       - application/json
-      description: Mengambil semua data penulis dari database
+      description: Mengambil semua data penulis dari database (butuh token)
       produces:
       - application/json
       responses:
@@ -598,13 +610,15 @@ paths:
           schema:
             additionalProperties: true
             type: object
+      security:
+      - Bearer: []
       summary: Ambil semua penulis
       tags:
       - Penulis
     post:
       consumes:
       - application/json
-      description: Menambahkan data penulis ke database (dengan token BearerAuth)
+      description: Menambahkan data penulis ke database (dengan token Bearer)
       parameters:
       - description: Data Penulis
         in: body
@@ -631,7 +645,7 @@ paths:
             additionalProperties: true
             type: object
       security:
-      - BearerAuth: []
+      - Bearer: []
       summary: Tambah penulis baru
       tags:
       - Penulis
@@ -639,7 +653,7 @@ paths:
     delete:
       consumes:
       - application/json
-      description: Menghapus data penulis berdasarkan ID (dengan token BearerAuth)
+      description: Menghapus data penulis berdasarkan ID (dengan token Bearer)
       parameters:
       - description: ID Penulis
         in: path
@@ -660,14 +674,14 @@ paths:
             additionalProperties: true
             type: object
       security:
-      - BearerAuth: []
+      - Bearer: []
       summary: Hapus penulis
       tags:
       - Penulis
     get:
       consumes:
       - application/json
-      description: Mengambil data penulis berdasarkan ID
+      description: Mengambil data penulis berdasarkan ID (butuh token)
       parameters:
       - description: ID Penulis
         in: path
@@ -687,13 +701,15 @@ paths:
           schema:
             additionalProperties: true
             type: object
+      security:
+      - Bearer: []
       summary: Ambil penulis berdasarkan ID
       tags:
       - Penulis
     put:
       consumes:
       - application/json
-      description: Memperbarui data penulis berdasarkan ID (dengan token BearerAuth)
+      description: Memperbarui data penulis berdasarkan ID (dengan token Bearer)
       parameters:
       - description: ID Penulis
         in: path
@@ -725,7 +741,7 @@ paths:
             additionalProperties: true
             type: object
       security:
-      - BearerAuth: []
+      - Bearer: []
       summary: Perbarui data penulis
       tags:
       - Penulis
@@ -764,8 +780,9 @@ paths:
       - Auth
 schemes:
 - http
+- https
 securityDefinitions:
-  BearerAuth:
+  Bearer:
     description: 'Masukkan token JWT dengan format: Bearer {token}'
     in: header
     name: Authorization

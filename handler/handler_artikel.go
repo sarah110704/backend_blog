@@ -6,6 +6,7 @@ import (
 	"fmt"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/golang-jwt/jwt/v4"
 )
 
 // Homepage godoc
@@ -22,10 +23,11 @@ func Homepage(c *fiber.Ctx) error {
 
 // GetAllArtikels godoc
 // @Summary Mendapatkan semua artikel
-// @Description Mengambil semua data artikel dari database
+// @Description Mengambil semua data artikel dari database (butuh token)
 // @Tags Artikel
 // @Accept json
 // @Produce json
+// @Security Bearer
 // @Success 200 {object} map[string]interface{}
 // @Failure 500 {object} map[string]interface{}
 // @Router /api/artikels [get]
@@ -53,7 +55,7 @@ func GetAllArtikels(c *fiber.Ctx) error {
 // @Success 201 {object} map[string]interface{}
 // @Failure 400 {object} map[string]interface{}
 // @Failure 500 {object} map[string]interface{}
-// @Security BearerAuth
+// @Security Bearer
 // @Router /api/artikels [post]
 func CreateArtikel(c *fiber.Ctx) error {
 	var artikel model.Artikel
@@ -64,6 +66,16 @@ func CreateArtikel(c *fiber.Ctx) error {
 			"error":   err.Error(),
 		})
 	}
+
+	// Ambil id_penulis dari JWT (email)
+	user := c.Locals("user")
+	if user != nil {
+		claims := user.(*jwt.Token).Claims.(jwt.MapClaims)
+		artikel.IDPenulis = claims["email"].(string)
+	}
+
+	// Jika ingin id_kategori otomatis, bisa set default di sini
+	// artikel.IDKategori = "default_kategori_id"
 
 	if err := controller.CreateArtikel(&artikel); err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
@@ -81,10 +93,11 @@ func CreateArtikel(c *fiber.Ctx) error {
 
 // GetArtikelByID godoc
 // @Summary Mendapatkan artikel berdasarkan ID
-// @Description Mengambil artikel tertentu berdasarkan ID
+// @Description Mengambil artikel tertentu berdasarkan ID (butuh token)
 // @Tags Artikel
 // @Accept json
 // @Produce json
+// @Security Bearer
 // @Param id path string true "ID Artikel"
 // @Success 200 {object} map[string]interface{}
 // @Failure 404 {object} map[string]interface{}
@@ -118,7 +131,7 @@ func GetArtikelByID(c *fiber.Ctx) error {
 // @Success 200 {object} map[string]interface{}
 // @Failure 400 {object} map[string]interface{}
 // @Failure 500 {object} map[string]interface{}
-// @Security BearerAuth
+// @Security Bearer
 // @Router /api/artikels/{id} [put]
 func UpdateArtikelByID(c *fiber.Ctx) error {
 	id := c.Params("id")
@@ -155,7 +168,7 @@ func UpdateArtikelByID(c *fiber.Ctx) error {
 // @Param id path string true "ID Artikel"
 // @Success 200 {object} map[string]interface{}
 // @Failure 500 {object} map[string]interface{}
-// @Security BearerAuth
+// @Security Bearer
 // @Router /api/artikels/{id} [delete]
 func DeleteArtikelByID(c *fiber.Ctx) error {
 	id := c.Params("id")

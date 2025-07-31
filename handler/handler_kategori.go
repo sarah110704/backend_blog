@@ -11,10 +11,11 @@ import (
 
 // GetAllKategoris godoc
 // @Summary Mendapatkan semua kategori
-// @Description Mengambil semua data kategori dari database
+// @Description Mengambil semua data kategori dari database (butuh token)
 // @Tags Kategori
 // @Accept json
 // @Produce json
+// @Security Bearer
 // @Success 200 {object} map[string]interface{}
 // @Failure 500 {object} map[string]interface{}
 // @Router /api/kategoris [get]
@@ -43,7 +44,7 @@ func GetAllKategoris(c *fiber.Ctx) error {
 // @Success 201 {object} map[string]interface{}
 // @Failure 400 {object} map[string]interface{}
 // @Failure 500 {object} map[string]interface{}
-// @Security BearerAuth
+// @Security Bearer
 // @Router /api/kategoris [post]
 func CreateKategori(c *fiber.Ctx) error {
 	var kategori model.Kategori
@@ -72,10 +73,11 @@ func CreateKategori(c *fiber.Ctx) error {
 
 // GetKategoriByID godoc
 // @Summary Mendapatkan kategori berdasarkan ID
-// @Description Mengambil detail kategori berdasarkan ID
+// @Description Mengambil detail kategori berdasarkan ID (butuh token)
 // @Tags Kategori
 // @Accept json
 // @Produce json
+// @Security Bearer
 // @Param id path string true "ID Kategori"
 // @Success 200 {object} map[string]interface{}
 // @Failure 404 {object} map[string]interface{}
@@ -109,7 +111,7 @@ func GetKategoriByID(c *fiber.Ctx) error {
 // @Success 200 {object} map[string]interface{}
 // @Failure 400 {object} map[string]interface{}
 // @Failure 500 {object} map[string]interface{}
-// @Security BearerAuth
+// @Security Bearer
 // @Router /api/kategoris/{id} [put]
 func UpdateKategoriByID(c *fiber.Ctx) error {
 	id := c.Params("id")
@@ -147,7 +149,7 @@ func UpdateKategoriByID(c *fiber.Ctx) error {
 // @Param id path string true "ID Kategori"
 // @Success 200 {object} map[string]interface{}
 // @Failure 500 {object} map[string]interface{}
-// @Security BearerAuth
+// @Security Bearer
 // @Router /api/kategoris/{id} [delete]
 func DeleteKategoriByID(c *fiber.Ctx) error {
 	id := c.Params("id")

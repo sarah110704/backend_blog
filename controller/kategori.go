@@ -9,6 +9,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 )
 
+// GetAllKategoris - Ambil semua kategori
 func GetAllKategoris(ctx context.Context) ([]model.Kategori, error) {
 	collection := config.DB.Collection("kategori")
 	filter := bson.M{}
@@ -28,6 +29,7 @@ func GetAllKategoris(ctx context.Context) ([]model.Kategori, error) {
 	return data, nil
 }
 
+// CreateKategori - Menambahkan kategori baru
 func CreateKategori(kategori *model.Kategori) error {
 	collection := config.DB.Collection("kategori")
 
@@ -40,6 +42,7 @@ func CreateKategori(kategori *model.Kategori) error {
 	return nil
 }
 
+// GetKategoriByID - Mengambil kategori berdasarkan ID
 func GetKategoriByID(ctx context.Context, id string) (model.Kategori, error) {
 	var kategori model.Kategori
 	collection := config.DB.Collection("kategori")
@@ -54,6 +57,7 @@ func GetKategoriByID(ctx context.Context, id string) (model.Kategori, error) {
 	return kategori, nil
 }
 
+// UpdateKategoriByID - Update kategori berdasarkan ID
 func UpdateKategoriByID(ctx context.Context, id string, data model.Kategori) error {
 	collection := config.DB.Collection("kategori")
 
@@ -73,6 +77,7 @@ func UpdateKategoriByID(ctx context.Context, id string, data model.Kategori) err
 	return nil
 }
 
+// DeleteKategoriByID - Hapus kategori berdasarkan ID
 func DeleteKategoriByID(ctx context.Context, id string) error {
 	collection := config.DB.Collection("kategori")
 

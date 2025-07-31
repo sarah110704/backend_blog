@@ -48,7 +48,12 @@ const docTemplate = `{
         },
         "/api/artikels": {
             "get": {
-                "description": "Mengambil semua data artikel dari database",
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "description": "Mengambil semua data artikel dari database (butuh token)",
                 "consumes": [
                     "application/json"
                 ],
@@ -79,7 +84,7 @@ const docTemplate = `{
             "post": {
                 "security": [
                     {
-                        "BearerAuth": []
+                        "Bearer": []
                     }
                 ],
                 "description": "Menyimpan artikel baru ke database (butuh token)",
@@ -131,7 +136,12 @@ const docTemplate = `{
         },
         "/api/artikels/{id}": {
             "get": {
-                "description": "Mengambil artikel tertentu berdasarkan ID",
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "description": "Mengambil artikel tertentu berdasarkan ID (butuh token)",
                 "consumes": [
                     "application/json"
                 ],
@@ -171,7 +181,7 @@ const docTemplate = `{
             "put": {
                 "security": [
                     {
-                        "BearerAuth": []
+                        "Bearer": []
                     }
                 ],
                 "description": "Mengubah data artikel berdasarkan ID (butuh token)",
@@ -230,7 +240,7 @@ const docTemplate = `{
             "delete": {
                 "security": [
                     {
-                        "BearerAuth": []
+                        "Bearer": []
                     }
                 ],
                 "description": "Menghapus artikel tertentu dari database (butuh token)",
@@ -273,7 +283,12 @@ const docTemplate = `{
         },
         "/api/kategoris": {
             "get": {
-                "description": "Mengambil semua data kategori dari database",
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "description": "Mengambil semua data kategori dari database (butuh token)",
                 "consumes": [
                     "application/json"
                 ],
@@ -304,7 +319,7 @@ const docTemplate = `{
             "post": {
                 "security": [
                     {
-                        "BearerAuth": []
+                        "Bearer": []
                     }
                 ],
                 "description": "Menambahkan kategori baru ke database (butuh token)",
@@ -356,7 +371,12 @@ const docTemplate = `{
         },
         "/api/kategoris/{id}": {
             "get": {
-                "description": "Mengambil detail kategori berdasarkan ID",
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "description": "Mengambil detail kategori berdasarkan ID (butuh token)",
                 "consumes": [
                     "application/json"
                 ],
@@ -396,7 +416,7 @@ const docTemplate = `{
             "put": {
                 "security": [
                     {
-                        "BearerAuth": []
+                        "Bearer": []
                     }
                 ],
                 "description": "Mengubah data kategori berdasarkan ID (butuh token)",
@@ -455,7 +475,7 @@ const docTemplate = `{
             "delete": {
                 "security": [
                     {
-                        "BearerAuth": []
+                        "Bearer": []
                     }
                 ],
                 "description": "Menghapus data kategori dari database berdasarkan ID (butuh token)",
@@ -498,7 +518,12 @@ const docTemplate = `{
         },
         "/api/komentars": {
             "get": {
-                "description": "Mengambil semua data komentar dari database",
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "description": "Mengambil semua data komentar dari database (butuh token)",
                 "consumes": [
                     "application/json"
                 ],
@@ -529,7 +554,7 @@ const docTemplate = `{
             "post": {
                 "security": [
                     {
-                        "BearerAuth": []
+                        "Bearer": []
                     }
                 ],
                 "description": "Membuat data komentar baru (membutuhkan token)",
@@ -581,7 +606,12 @@ const docTemplate = `{
         },
         "/api/komentars/{id}": {
             "get": {
-                "description": "Mengambil satu data komentar berdasarkan ID",
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "description": "Mengambil satu data komentar berdasarkan ID (butuh token)",
                 "consumes": [
                     "application/json"
                 ],
@@ -621,7 +651,7 @@ const docTemplate = `{
             "put": {
                 "security": [
                     {
-                        "BearerAuth": []
+                        "Bearer": []
                     }
                 ],
                 "description": "Memperbarui data komentar berdasarkan ID (membutuhkan token)",
@@ -680,7 +710,7 @@ const docTemplate = `{
             "delete": {
                 "security": [
                     {
-                        "BearerAuth": []
+                        "Bearer": []
                     }
                 ],
                 "description": "Menghapus komentar berdasarkan ID (membutuhkan token)",
@@ -772,7 +802,12 @@ const docTemplate = `{
         },
         "/api/penulis": {
             "get": {
-                "description": "Mengambil semua data penulis dari database",
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "description": "Mengambil semua data penulis dari database (butuh token)",
                 "consumes": [
                     "application/json"
                 ],
@@ -803,10 +838,10 @@ const docTemplate = `{
             "post": {
                 "security": [
                     {
-                        "BearerAuth": []
+                        "Bearer": []
                     }
                 ],
-                "description": "Menambahkan data penulis ke database (dengan token BearerAuth)",
+                "description": "Menambahkan data penulis ke database (dengan token Bearer)",
                 "consumes": [
                     "application/json"
                 ],
@@ -855,7 +890,12 @@ const docTemplate = `{
         },
         "/api/penulis/{id}": {
             "get": {
-                "description": "Mengambil data penulis berdasarkan ID",
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "description": "Mengambil data penulis berdasarkan ID (butuh token)",
                 "consumes": [
                     "application/json"
                 ],
@@ -895,10 +935,10 @@ const docTemplate = `{
             "put": {
                 "security": [
                     {
-                        "BearerAuth": []
+                        "Bearer": []
                     }
                 ],
-                "description": "Memperbarui data penulis berdasarkan ID (dengan token BearerAuth)",
+                "description": "Memperbarui data penulis berdasarkan ID (dengan token Bearer)",
                 "consumes": [
                     "application/json"
                 ],
@@ -954,10 +994,10 @@ const docTemplate = `{
             "delete": {
                 "security": [
                     {
-                        "BearerAuth": []
+                        "Bearer": []
                     }
                 ],
-                "description": "Menghapus data penulis berdasarkan ID (dengan token BearerAuth)",
+                "description": "Menghapus data penulis berdasarkan ID (dengan token Bearer)",
                 "consumes": [
                     "application/json"
                 ],
@@ -1157,7 +1197,7 @@ const docTemplate = `{
         }
     },
     "securityDefinitions": {
-        "BearerAuth": {
+        "Bearer": {
             "description": "Masukkan token JWT dengan format: Bearer {token}",
             "type": "apiKey",
             "name": "Authorization",
@@ -1169,9 +1209,9 @@ const docTemplate = `{
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
 	Version:          "1.0",
-	Host:             "localhost:6969",
-	BasePath:         "",
-	Schemes:          []string{"http"},
+	Host:             "",
+	BasePath:         "/",
+	Schemes:          []string{"http", "https"},
 	Title:            "Backend Artikel API",
 	Description:      "Dokumentasi REST API untuk manajemen artikel, kategori, komentar, dan penulis.",
 	InfoInstanceName: "swagger",

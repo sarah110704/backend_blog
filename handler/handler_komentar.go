@@ -10,10 +10,11 @@ import (
 
 // GetAllKomentars godoc
 // @Summary Ambil semua komentar
-// @Description Mengambil semua data komentar dari database
+// @Description Mengambil semua data komentar dari database (butuh token)
 // @Tags Komentar
 // @Accept json
 // @Produce json
+// @Security Bearer
 // @Success 200 {object} map[string]interface{}
 // @Failure 500 {object} map[string]interface{}
 // @Router /api/komentars [get]
@@ -42,7 +43,7 @@ func GetAllKomentars(c *fiber.Ctx) error {
 // @Success 201 {object} map[string]interface{}
 // @Failure 400 {object} map[string]interface{}
 // @Failure 500 {object} map[string]interface{}
-// @Security BearerAuth
+// @Security Bearer
 // @Router /api/komentars [post]
 func CreateKomentar(c *fiber.Ctx) error {
 	var komentar model.Komentar
@@ -69,10 +70,11 @@ func CreateKomentar(c *fiber.Ctx) error {
 
 // GetKomentarByID godoc
 // @Summary Ambil komentar berdasarkan ID
-// @Description Mengambil satu data komentar berdasarkan ID
+// @Description Mengambil satu data komentar berdasarkan ID (butuh token)
 // @Tags Komentar
 // @Accept json
 // @Produce json
+// @Security Bearer
 // @Param id path string true "ID Komentar"
 // @Success 200 {object} map[string]interface{}
 // @Failure 404 {object} map[string]interface{}
@@ -106,7 +108,7 @@ func GetKomentarByID(c *fiber.Ctx) error {
 // @Success 200 {object} map[string]interface{}
 // @Failure 400 {object} map[string]interface{}
 // @Failure 500 {object} map[string]interface{}
-// @Security BearerAuth
+// @Security Bearer
 // @Router /api/komentars/{id} [put]
 func UpdateKomentarByID(c *fiber.Ctx) error {
 	id := c.Params("id")
@@ -144,7 +146,7 @@ func UpdateKomentarByID(c *fiber.Ctx) error {
 // @Param id path string true "ID Komentar"
 // @Success 200 {object} map[string]interface{}
 // @Failure 500 {object} map[string]interface{}
-// @Security BearerAuth
+// @Security Bearer
 // @Router /api/komentars/{id} [delete]
 func DeleteKomentarByID(c *fiber.Ctx) error {
 	id := c.Params("id")

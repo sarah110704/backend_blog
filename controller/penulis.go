@@ -10,6 +10,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
+// GetAllPenulis - Ambil semua data penulis
 func GetAllPenulis(ctx context.Context) ([]model.Penulis, error) {
 	collection := config.DB.Collection("penulis")
 
@@ -28,6 +29,7 @@ func GetAllPenulis(ctx context.Context) ([]model.Penulis, error) {
 	return data, nil
 }
 
+// CreatePenulis - Menambahkan penulis baru
 func CreatePenulis(p *model.Penulis) error {
 	collection := config.DB.Collection("penulis")
 	p.ID = primitive.NewObjectID().Hex()
@@ -41,6 +43,7 @@ func CreatePenulis(p *model.Penulis) error {
 	return nil
 }
 
+// GetPenulisByID - Mengambil penulis berdasarkan ID
 func GetPenulisByID(ctx context.Context, id string) (model.Penulis, error) {
 	var p model.Penulis
 	collection := config.DB.Collection("penulis")
@@ -54,6 +57,7 @@ func GetPenulisByID(ctx context.Context, id string) (model.Penulis, error) {
 	return p, nil
 }
 
+// UpdatePenulisByID - Update data penulis berdasarkan ID
 func UpdatePenulisByID(ctx context.Context, id string, data model.Penulis) error {
 	collection := config.DB.Collection("penulis")
 
@@ -70,6 +74,7 @@ func UpdatePenulisByID(ctx context.Context, id string, data model.Penulis) error
 	return err
 }
 
+// DeletePenulisByID - Hapus penulis berdasarkan ID
 func DeletePenulisByID(ctx context.Context, id string) error {
 	collection := config.DB.Collection("penulis")
 

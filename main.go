@@ -8,7 +8,7 @@ import (
 	"os"
 	"strings"
 
-	_ "Backend/docs"
+	_ "Backend/docs" // Wajib agar swagger.json digunakan
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
@@ -18,12 +18,9 @@ import (
 )
 
 func init() {
-	if _, err := os.Stat(".env"); err == nil {
-		if loadErr := godotenv.Load(); loadErr != nil {
-			log.Println("Error loading .env file")
-		}
-	} else {
-		log.Println(".env file not found, using environment variables from Railway")
+	err := godotenv.Load()
+	if err != nil {
+		log.Println("Error loading .env file")
 	}
 }
 
@@ -35,33 +32,48 @@ func init() {
 // @contact.email kamu@email.com
 // @license.name MIT
 // @license.url https://opensource.org/licenses/MIT
-// @host localhost:6969
-// @schemes http
-// @securityDefinitions.apikey BearerAuth
+// @schemes http https
+// @BasePath /
+// @securityDefinitions.apikey Bearer
 // @in header
 // @name Authorization
 // @description Masukkan token JWT dengan format: Bearer {token}
 func main() {
 	config.DB = config.MongoConnect(config.DBName)
 	if config.DB == nil {
-		log.Fatal("❌ Failed to connect to MongoDB")
+		log.Fatal("Failed to connect to MongoDB")
 	}
 
 	app := fiber.New()
 
 	app.Use(logger.New())
+
+	// Enhanced CORS configuration for both HTTP and HTTPS
 	app.Use(cors.New(cors.Config{
-		AllowOrigins:     strings.Join(config.GetAllowedOrigins(), ","),
-		AllowMethods:     "GET,POST,PUT,DELETE",
-		AllowHeaders:     "Origin, Content-Type, Accept, Authorization",
-		AllowCredentials: true,
+		AllowOrigins:     "*",
+		AllowMethods:     "GET,POST,PUT,DELETE,OPTIONS,PATCH",
+		AllowHeaders:     "Origin, Content-Type, Accept, Authorization, X-Requested-With, Access-Control-Allow-Origin",
+		AllowCredentials: false,
+		ExposeHeaders:    "Content-Length, Access-Control-Allow-Origin",
 	}))
 
-	app.Get("/docs/*", swagger.HandlerDefault) // Swagger UI: http://localhost:6969/docs/index.html
+	// Add preflight OPTIONS handler
+	app.Options("/*", func(c *fiber.Ctx) error {
+		return c.SendStatus(204)
+	})
+
+	app.Get("/docs/*", swagger.HandlerDefault) // http://localhost:6969/docs/index.html
+
+	// Serve swagger.json with proper CORS at root level
+	app.Get("/swagger.json", func(c *fiber.Ctx) error {
+		c.Set("Access-Control-Allow-Origin", "*")
+		c.Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
+		c.Set("Access-Control-Allow-Headers", "Origin, Content-Type, Accept, Authorization")
+		return c.SendFile("./docs/swagger.json")
+	})
 
 	router.SetupRoutes(app)
 
-	// Default 404 handler
 	app.Use(func(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{
 			"status":  "error",
@@ -73,12 +85,6 @@ func main() {
 	if port == "" {
 		port = "6969"
 	}
-
-	host := os.Getenv("RAILWAY_STATIC_URL")
-	if host == "" {
-		host = "http://localhost"
-	}
-
-	fmt.Printf("🚀 Server running at %s:%s\n", host, port)
+	fmt.Printf("🚀 Server running at http://localhost:%s\n", port)
 	log.Fatal(app.Listen(":" + port))
 }

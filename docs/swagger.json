@@ -1,6 +1,7 @@
 {
     "schemes": [
-        "http"
+        "http",
+        "https"
     ],
     "swagger": "2.0",
     "info": {
@@ -17,7 +18,7 @@
         },
         "version": "1.0"
     },
-    "host": "localhost:6969",
+    "basePath": "/",
     "paths": {
         "/api/": {
             "get": {
@@ -44,7 +45,12 @@
         },
         "/api/artikels": {
             "get": {
-                "description": "Mengambil semua data artikel dari database",
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "description": "Mengambil semua data artikel dari database (butuh token)",
                 "consumes": [
                     "application/json"
                 ],
@@ -75,7 +81,7 @@
             "post": {
                 "security": [
                     {
-                        "BearerAuth": []
+                        "Bearer": []
                     }
                 ],
                 "description": "Menyimpan artikel baru ke database (butuh token)",
@@ -127,7 +133,12 @@
         },
         "/api/artikels/{id}": {
             "get": {
-                "description": "Mengambil artikel tertentu berdasarkan ID",
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "description": "Mengambil artikel tertentu berdasarkan ID (butuh token)",
                 "consumes": [
                     "application/json"
                 ],
@@ -167,7 +178,7 @@
             "put": {
                 "security": [
                     {
-                        "BearerAuth": []
+                        "Bearer": []
                     }
                 ],
                 "description": "Mengubah data artikel berdasarkan ID (butuh token)",
@@ -226,7 +237,7 @@
             "delete": {
                 "security": [
                     {
-                        "BearerAuth": []
+                        "Bearer": []
                     }
                 ],
                 "description": "Menghapus artikel tertentu dari database (butuh token)",
@@ -269,7 +280,12 @@
         },
         "/api/kategoris": {
             "get": {
-                "description": "Mengambil semua data kategori dari database",
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "description": "Mengambil semua data kategori dari database (butuh token)",
                 "consumes": [
                     "application/json"
                 ],
@@ -300,7 +316,7 @@
             "post": {
                 "security": [
                     {
-                        "BearerAuth": []
+                        "Bearer": []
                     }
                 ],
                 "description": "Menambahkan kategori baru ke database (butuh token)",
@@ -352,7 +368,12 @@
         },
         "/api/kategoris/{id}": {
             "get": {
-                "description": "Mengambil detail kategori berdasarkan ID",
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "description": "Mengambil detail kategori berdasarkan ID (butuh token)",
                 "consumes": [
                     "application/json"
                 ],
@@ -392,7 +413,7 @@
             "put": {
                 "security": [
                     {
-                        "BearerAuth": []
+                        "Bearer": []
                     }
                 ],
                 "description": "Mengubah data kategori berdasarkan ID (butuh token)",
@@ -451,7 +472,7 @@
             "delete": {
                 "security": [
                     {
-                        "BearerAuth": []
+                        "Bearer": []
                     }
                 ],
                 "description": "Menghapus data kategori dari database berdasarkan ID (butuh token)",
@@ -494,7 +515,12 @@
         },
         "/api/komentars": {
             "get": {
-                "description": "Mengambil semua data komentar dari database",
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "description": "Mengambil semua data komentar dari database (butuh token)",
                 "consumes": [
                     "application/json"
                 ],
@@ -525,7 +551,7 @@
             "post": {
                 "security": [
                     {
-                        "BearerAuth": []
+                        "Bearer": []
                     }
                 ],
                 "description": "Membuat data komentar baru (membutuhkan token)",
@@ -577,7 +603,12 @@
         },
         "/api/komentars/{id}": {
             "get": {
-                "description": "Mengambil satu data komentar berdasarkan ID",
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "description": "Mengambil satu data komentar berdasarkan ID (butuh token)",
                 "consumes": [
                     "application/json"
                 ],
@@ -617,7 +648,7 @@
             "put": {
                 "security": [
                     {
-                        "BearerAuth": []
+                        "Bearer": []
                     }
                 ],
                 "description": "Memperbarui data komentar berdasarkan ID (membutuhkan token)",
@@ -676,7 +707,7 @@
             "delete": {
                 "security": [
                     {
-                        "BearerAuth": []
+                        "Bearer": []
                     }
                 ],
                 "description": "Menghapus komentar berdasarkan ID (membutuhkan token)",
@@ -768,7 +799,12 @@
         },
         "/api/penulis": {
             "get": {
-                "description": "Mengambil semua data penulis dari database",
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "description": "Mengambil semua data penulis dari database (butuh token)",
                 "consumes": [
                     "application/json"
                 ],
@@ -799,10 +835,10 @@
             "post": {
                 "security": [
                     {
-                        "BearerAuth": []
+                        "Bearer": []
                     }
                 ],
-                "description": "Menambahkan data penulis ke database (dengan token BearerAuth)",
+                "description": "Menambahkan data penulis ke database (dengan token Bearer)",
                 "consumes": [
                     "application/json"
                 ],
@@ -851,7 +887,12 @@
         },
         "/api/penulis/{id}": {
             "get": {
-                "description": "Mengambil data penulis berdasarkan ID",
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "description": "Mengambil data penulis berdasarkan ID (butuh token)",
                 "consumes": [
                     "application/json"
                 ],
@@ -891,10 +932,10 @@
             "put": {
                 "security": [
                     {
-                        "BearerAuth": []
+                        "Bearer": []
                     }
                 ],
-                "description": "Memperbarui data penulis berdasarkan ID (dengan token BearerAuth)",
+                "description": "Memperbarui data penulis berdasarkan ID (dengan token Bearer)",
                 "consumes": [
                     "application/json"
                 ],
@@ -950,10 +991,10 @@
             "delete": {
                 "security": [
                     {
-                        "BearerAuth": []
+                        "Bearer": []
                     }
                 ],
-                "description": "Menghapus data penulis berdasarkan ID (dengan token BearerAuth)",
+                "description": "Menghapus data penulis berdasarkan ID (dengan token Bearer)",
                 "consumes": [
                     "application/json"
                 ],
@@ -1153,7 +1194,7 @@
         }
     },
     "securityDefinitions": {
-        "BearerAuth": {
+        "Bearer": {
             "description": "Masukkan token JWT dengan format: Bearer {token}",
             "type": "apiKey",
             "name": "Authorization",
