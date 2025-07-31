@@ -1169,9 +1169,9 @@ const docTemplate = `{
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
 	Version:          "1.0",
-	Host:             "localhost:6969",
+	Host:             "",
 	BasePath:         "",
-	Schemes:          []string{"https", "http"},
+	Schemes:          []string{"http", "https"},
 	Title:            "Backend Artikel API",
 	Description:      "Dokumentasi REST API untuk manajemen artikel, kategori, komentar, dan penulis.",
 	InfoInstanceName: "swagger",

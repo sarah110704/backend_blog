@@ -1,7 +1,7 @@
 {
     "schemes": [
-        "https",
-        "http"
+        "http",
+        "https"
     ],
     "swagger": "2.0",
     "info": {
@@ -18,7 +18,6 @@
         },
         "version": "1.0"
     },
-    "host": "localhost:6969",
     "paths": {
         "/api/": {
             "get": {
