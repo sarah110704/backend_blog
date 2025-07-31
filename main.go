@@ -45,14 +45,20 @@ func main() {
 
 	app := fiber.New()
 
-	app.Use(logger.New())
+	// CORS harus paling atas
 	app.Use(cors.New(cors.Config{
 		AllowOrigins: "https://petstore.swagger.io,https://editor.swagger.io,https://app.swaggerhub.com,https://backendblog.up.railway.app,https://tampilan-blog.vercel.app",
 		AllowMethods: "GET,POST,PUT,DELETE,OPTIONS",
-		AllowHeaders: "Origin, Content-Type, Accept, Authorization",
+		AllowHeaders: "*",
 		AllowCredentials: true,
 		ExposeHeaders: "Content-Length, Access-Control-Allow-Origin, Access-Control-Allow-Headers, Authorization",
 	}))
+	app.Use(logger.New())
+
+	// Handler global untuk preflight OPTIONS
+	app.Options("*", func(c *fiber.Ctx) error {
+		return c.SendStatus(fiber.StatusNoContent)
+	})
 
 	app.Get("/docs/*", swagger.HandlerDefault) // http://localhost:6969/docs/index.html
 
