@@ -51,6 +51,7 @@ func main() {
 		AllowMethods: "GET,POST,PUT,DELETE,OPTIONS",
 		AllowHeaders: "Origin, Content-Type, Accept, Authorization",
 		AllowCredentials: true,
+		ExposeHeaders: "Content-Length, Access-Control-Allow-Origin, Access-Control-Allow-Headers, Authorization",
 	}))
 
 	app.Get("/docs/*", swagger.HandlerDefault) // http://localhost:6969/docs/index.html
