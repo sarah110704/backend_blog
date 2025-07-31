@@ -71,7 +71,6 @@ definitions:
       password:
         type: string
     type: object
-host:
 info:
   contact:
     email: kamu@email.com
