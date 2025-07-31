@@ -20,6 +20,7 @@ func GenerateJWT(email string) (string, error) {
 
 func ValidateToken(signedToken string) (map[string]interface{}, error) {
 	token, err := jwt.Parse(signedToken, func(token *jwt.Token) (interface{}, error) {
+<<<<<<< HEAD
 		// Make sure we're using HMAC
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 			return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
@@ -40,4 +41,17 @@ func ValidateToken(signedToken string) (map[string]interface{}, error) {
 	}
 
 	return nil, fmt.Errorf("could not parse claims")
+=======
+		return jwtKey, nil
+	})
+	if err != nil || !token.Valid {
+		return nil, err
+	}
+
+	if claims, ok := token.Claims.(jwt.MapClaims); ok {
+		return claims, nil
+	}
+
+	return nil, err
+>>>>>>> 36605f5109d3743dcee478d3c815d3b15f6f91d5
 }

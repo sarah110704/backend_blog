@@ -1210,7 +1210,11 @@ const docTemplate = `{
 var SwaggerInfo = &swag.Spec{
 	Version:          "1.0",
 	Host:             "",
+<<<<<<< HEAD
 	BasePath:         "/",
+=======
+	BasePath:         "",
+>>>>>>> 36605f5109d3743dcee478d3c815d3b15f6f91d5
 	Schemes:          []string{"http", "https"},
 	Title:            "Backend Artikel API",
 	Description:      "Dokumentasi REST API untuk manajemen artikel, kategori, komentar, dan penulis.",
